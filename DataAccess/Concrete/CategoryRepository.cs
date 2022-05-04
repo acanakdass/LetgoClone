@@ -23,9 +23,11 @@ public class CategoryRepository : ICategoryRepository
         return users.ToList();
     }
 
-    public Task<Category> GetByIdAsync(int id)
+    public async Task<Category> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        var query = $"SELECT * FROM categories WHERE id={id}";
+        var result = await _dbConnection.QueryAsync<Category>(query);
+        return result.FirstOrDefault();
     }
 
     public async Task<int> AddAsync(Category entity)

@@ -1,12 +1,12 @@
 using AutoMapper;
 using Entity;
-using Entity.Dtos;
+using Entity.DTOs.Category;
 
 namespace Service.Mappers;
 
-public class Mapper:Profile
+public class CategoryMapper:Profile
 {
-    public Mapper()
+    public CategoryMapper()
     {
         CreateMap<Category, CategoryAddDto>().ReverseMap();
     }

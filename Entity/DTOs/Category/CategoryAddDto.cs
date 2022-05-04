@@ -1,4 +1,4 @@
-namespace Entity.Dtos;
+namespace Entity.DTOs.Category;
 
 public class CategoryAddDto
 {

@@ -1,6 +1,6 @@
 using AutoMapper;
 using Entity;
-using Entity.DTOs.Category;
+using Entity.DTOs.Advert;
 using Microsoft.AspNetCore.Mvc;
 using Service.Abstract;
 
@@ -8,47 +8,57 @@ namespace API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class CategoriesController : ControllerBase
+public class AdvertsController : ControllerBase
 {
-    private readonly ICategoryService _categoryService;
+    private readonly IAdvertService _service;
     private readonly IMapper _mapper;
 
-    public CategoriesController(ICategoryService categoryService, IMapper mapper)
+    public AdvertsController(IMapper mapper, IAdvertService service)
     {
-        _categoryService = categoryService;
         _mapper = mapper;
+        _service = service;
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var result = await _categoryService.GetAllAsync();
+        var result = await _service.GetAllAsync();
         if (result.Success)
         {
+            //var dtoResult = _mapper.Map<IList<AdvertGetDto>>(result.Data);
+            foreach (var advert in result.Data)
+            {
+                
+            }
+
             return Ok(result);
         }
+
         return BadRequest(result);
     }
-    
+
     [HttpPost]
-    public async Task<IActionResult> Add(CategoryAddDto categoryAddDto)
+    public async Task<IActionResult> Add(AdvertAddDto advertAddDto)
     {
-        var category = _mapper.Map<Category>(categoryAddDto);
-        var result = await _categoryService.AddAsync(category);
+        var advert = _mapper.Map<Advert>(advertAddDto);
+        var result = await _service.AddAsync(advert);
         if (result.Success)
         {
             return Ok(result);
         }
+
         return BadRequest(result);
     }
+
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
-        var result = await _categoryService.GetByIdAsync(id);
+        var result = await _service.GetByIdAsync(id);
         if (result.Success)
         {
             return Ok(result);
         }
+
         return BadRequest(result);
     }
 }

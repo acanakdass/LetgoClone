@@ -1,5 +1,3 @@
-
-
 using System.Data;
 using AutoMapper;
 using Service.Abstract;
@@ -11,7 +9,7 @@ using Service.Constants;
 
 namespace Service.Concrete;
 
-public class CategoryManager:ICategoryService
+public class CategoryManager : ICategoryService
 {
     private readonly ICategoryRepository _categoryRepository;
 
@@ -26,17 +24,20 @@ public class CategoryManager:ICategoryService
         return new SuccessDataResult<IList<Category>>(result);
     }
 
-    public Task<IDataResult<Category>> GetByIdAsync(int id)
+    public async Task<IDataResult<Category>> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        var result = await _categoryRepository.GetByIdAsync(id);
+        if (result == null)
+            return new ErrorDataResult<Category>(null, "Category Not Found");
+        return new SuccessDataResult<Category>(result, Messages.Listed("Category"));
     }
 
     public async Task<IDataResult<int>> AddAsync(Category entity)
     {
         var result = await _categoryRepository.AddAsync(entity);
         if (result >= 1)
-            return new SuccessDataResult<int>(result,Messages.Added("Category"));
-        return new ErrorDataResult<int>(0,"Error while adding category");
+            return new SuccessDataResult<int>(result, Messages.Added("Category"));
+        return new ErrorDataResult<int>(0, "Error while adding category");
     }
 
     public Task<IResult> UpdateAsync(Category entity)

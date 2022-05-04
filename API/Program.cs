@@ -1,24 +1,19 @@
-using System.Data;
-using System.Reflection;
+using Core.Extensions;
 using Core.Middlewares;
-using DataAccess.Abstract;
-using DataAccess.Concrete;
-using Npgsql;
-using Service.Abstract;
-using Service.Concrete;
+using Core.Utilities.Ioc;
 using Service.Mappers;
+using Service.Modules;
 
 var builder = WebApplication.CreateBuilder(args);
-
 builder.Services.AddControllers();
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<ICategoryService, CategoryManager>();
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<IDbConnection>(sp
-    => new NpgsqlConnection(builder.Configuration.GetConnectionString("PostgreSql")));
-builder.Services.AddAutoMapper(typeof(Mapper));
+builder.Services.AddAutoMapper(typeof(AdvertMapper), typeof(CategoryMapper));
+builder.Services.AddDependencyResolvers(new ICoreModule[]
+{
+    //new CoreModule(),
+    new DIModule(builder.Configuration)
+});
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -26,6 +21,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
