@@ -1,0 +1,207 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/ahmetcanakdas/RiderProjects/LetgoCloneProject/DataAccess/DataAccess.csproj": {}
+  },
+  "projects": {
+    "/Users/ahmetcanakdas/RiderProjects/LetgoCloneProject/Core/Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/ahmetcanakdas/RiderProjects/LetgoCloneProject/Core/Core.csproj",
+        "projectName": "Core",
+        "projectPath": "/Users/ahmetcanakdas/RiderProjects/LetgoCloneProject/Core/Core.csproj",
+        "packagesPath": "/Users/ahmetcanakdas/.nuget/packages/",
+        "outputPath": "/Users/ahmetcanakdas/RiderProjects/LetgoCloneProject/Core/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/ahmetcanakdas/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Autofac": {
+              "target": "Package",
+              "version": "[6.3.0, )"
+            },
+            "Autofac.Extras.DynamicProxy": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[10.4.0, )"
+            },
+            "Microsoft.AspNetCore": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.4, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[6.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/6.0.201/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/ahmetcanakdas/RiderProjects/LetgoCloneProject/DataAccess/DataAccess.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/ahmetcanakdas/RiderProjects/LetgoCloneProject/DataAccess/DataAccess.csproj",
+        "projectName": "DataAccess",
+        "projectPath": "/Users/ahmetcanakdas/RiderProjects/LetgoCloneProject/DataAccess/DataAccess.csproj",
+        "packagesPath": "/Users/ahmetcanakdas/.nuget/packages/",
+        "outputPath": "/Users/ahmetcanakdas/RiderProjects/LetgoCloneProject/DataAccess/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/ahmetcanakdas/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/Users/ahmetcanakdas/RiderProjects/LetgoCloneProject/Core/Core.csproj": {
+                "projectPath": "/Users/ahmetcanakdas/RiderProjects/LetgoCloneProject/Core/Core.csproj"
+              },
+              "/Users/ahmetcanakdas/RiderProjects/LetgoCloneProject/Entity/Entity.csproj": {
+                "projectPath": "/Users/ahmetcanakdas/RiderProjects/LetgoCloneProject/Entity/Entity.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.0.123, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/6.0.201/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/ahmetcanakdas/RiderProjects/LetgoCloneProject/Entity/Entity.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/ahmetcanakdas/RiderProjects/LetgoCloneProject/Entity/Entity.csproj",
+        "projectName": "Entity",
+        "projectPath": "/Users/ahmetcanakdas/RiderProjects/LetgoCloneProject/Entity/Entity.csproj",
+        "packagesPath": "/Users/ahmetcanakdas/.nuget/packages/",
+        "outputPath": "/Users/ahmetcanakdas/RiderProjects/LetgoCloneProject/Entity/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/ahmetcanakdas/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/Users/ahmetcanakdas/RiderProjects/LetgoCloneProject/Core/Core.csproj": {
+                "projectPath": "/Users/ahmetcanakdas/RiderProjects/LetgoCloneProject/Core/Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/6.0.201/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+/Users/ahmetcanakdas/RiderProjects/LetGoCloneProject/Entity/bin/Debug/net6.0/Entity.deps.json
+/Users/ahmetcanakdas/RiderProjects/LetgoCloneProject/Entity/bin/Debug/net6.0/Entity.dll
+/Users/ahmetcanakdas/RiderProjects/LetgoCloneProject/Entity/bin/Debug/net6.0/Entity.pdb
+/Users/ahmetcanakdas/RiderProjects/LetgoCloneProject/Entity/bin/Debug/net6.0/Core.dll
+/Users/ahmetcanakdas/RiderProjects/LetgoCloneProject/Entity/bin/Debug/net6.0/Core.pdb
+/Users/ahmetcanakdas/RiderProjects/LetgoCloneProject/Entity/obj/Debug/net6.0/Entity.csproj.AssemblyReference.cache
+/Users/ahmetcanakdas/RiderProjects/LetgoCloneProject/Entity/obj/Debug/net6.0/Entity.GeneratedMSBuildEditorConfig.editorconfig
+/Users/ahmetcanakdas/RiderProjects/LetgoCloneProject/Entity/obj/Debug/net6.0/Entity.AssemblyInfoInputs.cache
+/Users/ahmetcanakdas/RiderProjects/LetgoCloneProject/Entity/obj/Debug/net6.0/Entity.AssemblyInfo.cs
+/Users/ahmetcanakdas/RiderProjects/LetgoCloneProject/Entity/obj/Debug/net6.0/Entity.csproj.CoreCompileInputs.cache
+/Users/ahmetcanakdas/RiderProjects/LetGoCloneProject/Entity/obj/Debug/net6.0/Entity.csproj.CopyComplete
+/Users/ahmetcanakdas/RiderProjects/LetgoCloneProject/Entity/obj/Debug/net6.0/Entity.dll
+/Users/ahmetcanakdas/RiderProjects/LetgoCloneProject/Entity/obj/Debug/net6.0/refint/Entity.dll
+/Users/ahmetcanakdas/RiderProjects/LetgoCloneProject/Entity/obj/Debug/net6.0/Entity.pdb
+/Users/ahmetcanakdas/RiderProjects/LetGoCloneProject/Entity/obj/Debug/net6.0/ref/Entity.dll
