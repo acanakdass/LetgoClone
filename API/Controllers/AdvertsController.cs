@@ -24,16 +24,16 @@ public class AdvertsController : ControllerBase
     {
         var result = await _service.GetAllAsync();
         if (result.Success)
-        {
-            //var dtoResult = _mapper.Map<IList<AdvertGetDto>>(result.Data);
-            foreach (var advert in result.Data)
-            {
-                
-            }
-
             return Ok(result);
-        }
+        return BadRequest(result);
+    }
 
+    [HttpGet("GetAllPopulated")]
+    public async Task<IActionResult> GetAllPopulated()
+    {
+        var result = await _service.GetAllPopulatedAsync();
+        if (result.Success)
+            return Ok(result);
         return BadRequest(result);
     }
 
@@ -43,10 +43,7 @@ public class AdvertsController : ControllerBase
         var advert = _mapper.Map<Advert>(advertAddDto);
         var result = await _service.AddAsync(advert);
         if (result.Success)
-        {
             return Ok(result);
-        }
-
         return BadRequest(result);
     }
 

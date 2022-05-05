@@ -5,15 +5,16 @@ using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using Entity;
+using Entity.DTOs.Advert;
 using Service.Constants;
 
 namespace Service.Concrete;
 
 public class AdvertManager : IAdvertService
 {
-
     private readonly IAdvertRepository _repository;
     private readonly ICategoryService _categoryService;
+
     public AdvertManager(IAdvertRepository repository, ICategoryService categoryService)
     {
         _repository = repository;
@@ -36,6 +37,7 @@ public class AdvertManager : IAdvertService
 
     public async Task<IDataResult<int>> AddAsync(Advert entity)
     {
+        entity.created_date = DateTime.Now;
         var result = await _repository.AddAsync(entity);
         if (result >= 1)
             return new SuccessDataResult<int>(result, Messages.Added("Advert"));
@@ -50,5 +52,12 @@ public class AdvertManager : IAdvertService
     public Task<IResult> DeleteAsync(int id)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task<IDataResult<IList<AdvertGetPopulatedDto>>> GetAllPopulatedAsync()
+    {
+        var res = await _repository.GetAllPopulatedAsync();
+
+        return new SuccessDataResult<IList<AdvertGetPopulatedDto>>(res, Messages.Listed("Adverts"));
     }
 }
