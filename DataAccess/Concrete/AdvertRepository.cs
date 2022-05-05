@@ -75,4 +75,29 @@ public class AdvertRepository : IAdvertRepository
                 }, splitOn: "category_id, status_id, user_id");
         return adverts.ToList();
     }
+
+    public async Task<IList<AdvertGetPopulatedDto>> GetAllByCategoryPopulatedAsync(int categoryId)
+    {
+        var sql =
+            $@"select a.id, title, description, price, is_new, is_active, is_sold, is_tradable, a.created_date,
+                a.category_id, c.id, c.name,
+                a.status_id, s.id ,s.name,
+                a.user_id, u.id ,u.name,u.email
+                from adverts a
+                inner join categories c on a.category_id = c.id
+                inner join statuses s on a.status_id = s.id
+                inner join users u on a.user_id = u.id
+                WHERE category_id={categoryId}";
+
+        var adverts =
+            await _dbConnection.QueryAsync<AdvertGetPopulatedDto, Category, Status, User, AdvertGetPopulatedDto>(
+                sql, (advert, category, status, user) =>
+                {
+                    advert.Category = category;
+                    advert.Status = status;
+                    advert.User = user;
+                    return advert;
+                }, splitOn: "category_id, status_id, user_id");
+        return adverts.ToList();
+    }
 }

@@ -57,7 +57,12 @@ public class AdvertManager : IAdvertService
     public async Task<IDataResult<IList<AdvertGetPopulatedDto>>> GetAllPopulatedAsync()
     {
         var res = await _repository.GetAllPopulatedAsync();
+        return new SuccessDataResult<IList<AdvertGetPopulatedDto>>(res, Messages.Listed("Adverts"));
+    }
 
+    public async Task<IDataResult<IList<AdvertGetPopulatedDto>>> GetAllByCategoryPopulatedAsync(int categoryId)
+    {
+        var res = await _repository.GetAllByCategoryPopulatedAsync(categoryId);
         return new SuccessDataResult<IList<AdvertGetPopulatedDto>>(res, Messages.Listed("Adverts"));
     }
 }

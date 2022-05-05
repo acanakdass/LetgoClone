@@ -41,6 +41,29 @@ public class CategoriesController : ControllerBase
         }
         return BadRequest(result);
     }
+    
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var result = await _categoryService.DeleteAsync(id);
+        if (result.Success)
+        {
+            return Ok(result);
+        }
+        return BadRequest(result);
+    }
+    
+    [HttpPut]
+    public async Task<IActionResult> Delete(Category category)
+    {
+        var result = await _categoryService.UpdateAsync(category);
+        if (result.Success)
+        {
+            return Ok(result);
+        }
+        return BadRequest(result);
+    }
+    
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {

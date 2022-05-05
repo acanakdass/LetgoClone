@@ -40,13 +40,23 @@ public class CategoryManager : ICategoryService
         return new ErrorDataResult<int>(0, "Error while adding category");
     }
 
-    public Task<IResult> UpdateAsync(Category entity)
+    public async Task<IResult> UpdateAsync(Category entity)
     {
-        throw new NotImplementedException();
+        var result = await _categoryRepository.UpdateAsync(entity);
+        if (result != 0)
+        {
+            return new SuccessResult(Messages.Updated("Category"));
+        }
+        return new ErrorResult(Messages.FailedUpdate("Category"));
     }
 
-    public Task<IResult> DeleteAsync(int id)
+    public async Task<IResult> DeleteAsync(int id)
     {
-        throw new NotImplementedException();
+        var result = await _categoryRepository.DeleteAsync(id);
+        if (result != 0)
+        {
+            return new SuccessResult(Messages.Deleted("Category"));
+        }
+        return new ErrorResult(Messages.FailedDelete("Category"));
     }
 }

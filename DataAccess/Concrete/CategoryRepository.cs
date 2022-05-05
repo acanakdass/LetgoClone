@@ -39,11 +39,13 @@ public class CategoryRepository : ICategoryRepository
 
     public Task<int> UpdateAsync(Category entity)
     {
-        throw new NotImplementedException();
+        var command = @"UPDATE categories SET name=@name where id=@id";
+        return _dbConnection.ExecuteAsync(command, entity);
     }
 
-    public Task<int> DeleteAsync(int id)
+    public async Task<int> DeleteAsync(int id)
     {
-        throw new NotImplementedException();
+        var command = $"DELETE FROM categories WHERE id={id}";
+        return await _dbConnection.ExecuteAsync(command);
     }
 }

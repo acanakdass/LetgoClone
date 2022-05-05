@@ -36,6 +36,15 @@ public class AdvertsController : ControllerBase
             return Ok(result);
         return BadRequest(result);
     }
+    
+    [HttpGet("GetAllPopulatedByCategory")]
+    public async Task<IActionResult> GetAllPopulatedByCategory(int id)
+    {
+        var result = await _service.GetAllByCategoryPopulatedAsync(id);
+        if (result.Success)
+            return Ok(result);
+        return BadRequest(result);
+    }
 
     [HttpPost]
     public async Task<IActionResult> Add(AdvertAddDto advertAddDto)
