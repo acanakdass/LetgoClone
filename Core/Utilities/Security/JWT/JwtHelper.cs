@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Core.Entities.Concrete;
 using Core.Extensions;
@@ -56,11 +53,10 @@ namespace Core.Utilities.Security.JWT
         private IEnumerable<Claim> SetClaims(User user, List<OperationClaim> operationClaims)
         {
             var claims = new List<Claim>();
-            claims.AddNameIdentifier(user.Id.ToString());
-            claims.AddEmail(user.Email);
-            claims.AddName($"{user.FirstName} {user.LastName}");
-            claims.AddRoles(operationClaims.Select(c => c.Name).ToArray());
-
+            claims.AddNameIdentifier(user.id.ToString());
+            claims.AddEmail(user.email);
+            claims.AddName($"{user.first_name} {user.last_name}");
+            claims.AddRoles(operationClaims.Select(c => c.name).ToArray());
             return claims;
         }
     }

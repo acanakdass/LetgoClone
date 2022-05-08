@@ -1,5 +1,6 @@
 using System.Data;
 using Core.Utilities.Ioc;
+using Core.Utilities.Security.JWT;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +22,7 @@ public class DIModule:ICoreModule
     
     public void Load(IServiceCollection serviceCollection)
     {
+        
         serviceCollection.AddScoped<IDbConnection>(sp
             => new NpgsqlConnection(_configuration.GetConnectionString("PostgreSql")));
         
@@ -29,5 +31,12 @@ public class DIModule:ICoreModule
 
         serviceCollection.AddScoped<IAdvertService, AdvertManager>();
         serviceCollection.AddScoped<IAdvertRepository, AdvertRepository>();
+        
+        serviceCollection.AddScoped<IUserRepository, UserRepository>();
+        serviceCollection.AddScoped<IUserService, UserManager>();
+        
+        serviceCollection.AddScoped<IAuthService, AuthManager>();
+        
+        serviceCollection.AddScoped<ITokenHelper, JwtHelper>();
     }
 }

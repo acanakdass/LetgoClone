@@ -8,6 +8,7 @@
 
     <ItemGroup>
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.4" />
         <PackageReference Include="Npgsql" Version="6.0.3" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     </ItemGroup>
@@ -15,6 +16,10 @@
     <ItemGroup>
       <ProjectReference Include="..\Core\Core.csproj" />
       <ProjectReference Include="..\Service\Service.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Extensions" />
     </ItemGroup>
 
 </Project>

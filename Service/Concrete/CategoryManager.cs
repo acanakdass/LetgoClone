@@ -13,6 +13,7 @@ public class CategoryManager : ICategoryService
 {
     private readonly ICategoryRepository _categoryRepository;
 
+    private readonly string tableName = "categories";
     public CategoryManager(ICategoryRepository categoryRepository)
     {
         _categoryRepository = categoryRepository;
@@ -20,13 +21,13 @@ public class CategoryManager : ICategoryService
 
     public async Task<IDataResult<IList<Category>>> GetAllAsync()
     {
-        var result = await _categoryRepository.GetAllAsync();
+        var result = await _categoryRepository.GetAllAsync(tableName);
         return new SuccessDataResult<IList<Category>>(result);
     }
 
     public async Task<IDataResult<Category>> GetByIdAsync(int id)
     {
-        var result = await _categoryRepository.GetByIdAsync(id);
+        var result = await _categoryRepository.GetByIdAsync(tableName, id);
         if (result == null)
             return new ErrorDataResult<Category>(null, "Category Not Found");
         return new SuccessDataResult<Category>(result, Messages.Listed("Category"));
@@ -52,7 +53,7 @@ public class CategoryManager : ICategoryService
 
     public async Task<IResult> DeleteAsync(int id)
     {
-        var result = await _categoryRepository.DeleteAsync(id);
+        var result = await _categoryRepository.DeleteAsync(tableName,id);
         if (result != 0)
         {
             return new SuccessResult(Messages.Deleted("Category"));

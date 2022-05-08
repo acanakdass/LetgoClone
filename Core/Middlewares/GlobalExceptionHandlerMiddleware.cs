@@ -17,6 +17,7 @@ public static class GlobalExceptionHandlerMiddleware
                 context.Response.ContentType = "application/json";
                 var exceptionFeature = context.Features.Get<IExceptionHandlerFeature>();
                 var exception = exceptionFeature.Error;
+                context.Response.StatusCode=
                 context.Response.StatusCode = 500;
                 var erResult = new ErrorResult(exception.Message);
                 var responseBody = JsonSerializer.Serialize(erResult);

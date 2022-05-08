@@ -3,6 +3,7 @@ using Entity;
 using Entity.DTOs.Advert;
 using Microsoft.AspNetCore.Mvc;
 using Service.Abstract;
+using Service.Aspects.Security;
 
 namespace API.Controllers;
 
@@ -19,6 +20,7 @@ public class AdvertsController : ControllerBase
         _service = service;
     }
 
+    [SecuredAction("admin,standard_user")]
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -28,6 +30,7 @@ public class AdvertsController : ControllerBase
         return BadRequest(result);
     }
 
+    [SecuredAction("admin")]
     [HttpGet("GetAllPopulated")]
     public async Task<IActionResult> GetAllPopulated()
     {
@@ -37,6 +40,7 @@ public class AdvertsController : ControllerBase
         return BadRequest(result);
     }
     
+    [SecuredAction("standard_user")]
     [HttpGet("GetAllPopulatedByCategory")]
     public async Task<IActionResult> GetAllPopulatedByCategory(int id)
     {
@@ -45,7 +49,7 @@ public class AdvertsController : ControllerBase
             return Ok(result);
         return BadRequest(result);
     }
-
+    
     [HttpPost]
     public async Task<IActionResult> Add(AdvertAddDto advertAddDto)
     {

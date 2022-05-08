@@ -4,6 +4,6 @@ using Entity;
 
 namespace DataAccess.Abstract;
 
-public interface ICategoryRepository:IRepository<Category>
+public interface ICategoryRepository:IDapperEntityRepositoryBase<Category>,IRepository<Category>
 {
 }

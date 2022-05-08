@@ -6,28 +6,33 @@ namespace Core.Utilities.Security.Hashing
 {
     public class HashingHelper
     {
-        public static void CreatePasswordHash(string password, out byte[] passwordHash,out byte[] passwordSalt)
+        public static void CreatePasswordHash(string password, out string passwordHash, out string passwordSalt) 
         {
-            using(var hmac = new HMACSHA512())
+            using (var hmac = new System.Security.Cryptography.HMACSHA512())
             {
-                passwordSalt = hmac.Key;
-                passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+                passwordSalt = Convert.ToBase64String(hmac.Key);
+                passwordHash = Convert.ToBase64String(hmac.ComputeHash(Encoding.UTF8.GetBytes(password)));
             }
         }
-        public static bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+
+        public static bool VerifyPasswordHash(string password, string passwordHash, string passwordSalt)
         {
-            using (var hmac = new HMACSHA512(passwordSalt))
+            var pwHashByte = Convert.FromBase64String(passwordHash);
+            var pwSaltByte = Convert.FromBase64String(passwordSalt);
+            
+            using (var hmac = new System.Security.Cryptography.HMACSHA512(pwSaltByte))
             {
                 var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
                 for (int i = 0; i < computedHash.Length; i++)
                 {
-                    if (computedHash[i] != passwordHash[i])
+                    if (computedHash[i]!=pwHashByte[i])
                     {
                         return false;
                     }
                 }
-                return true;
             }
+
+            return true;
         }
     }
 }

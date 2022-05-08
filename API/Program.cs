@@ -1,6 +1,10 @@
 using Core.Extensions;
 using Core.Middlewares;
 using Core.Utilities.Ioc;
+using Core.Utilities.Security.Encryption;
+using Core.Utilities.Security.JWT;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Service.Mappers;
 using Service.Modules;
 
@@ -9,6 +13,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(AdvertMapper), typeof(CategoryMapper));
+
+var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+builder.Services.AddAuthenticationJWT(tokenOptions);
+
 builder.Services.AddDependencyResolvers(new ICoreModule[]
 {
     //new CoreModule(),
@@ -23,6 +31,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.UseGlobalExceptionMiddleware();

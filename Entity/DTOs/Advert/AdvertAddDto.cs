@@ -1,6 +1,8 @@
+using Core.Entities.Abstract;
+
 namespace Entity.DTOs.Advert;
 
-public class AdvertAddDto
+public class AdvertAddDto:IDto
 {
     public string title { get; set; }
     public string description { get; set; }

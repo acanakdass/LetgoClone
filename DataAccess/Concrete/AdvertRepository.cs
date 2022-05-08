@@ -1,4 +1,5 @@
 using System.Data;
+using Core.Entities.Concrete;
 using Dapper;
 using DataAccess.Abstract;
 using Entity;
@@ -6,7 +7,7 @@ using Entity.DTOs.Advert;
 
 namespace DataAccess.Concrete;
 
-public class AdvertRepository : IAdvertRepository
+public class AdvertRepository :DapperEntityRepositoryBase<Advert>, IAdvertRepository
 {
     private readonly IDbConnection _dbConnection;
 
@@ -55,10 +56,10 @@ public class AdvertRepository : IAdvertRepository
     public async Task<IList<AdvertGetPopulatedDto>> GetAllPopulatedAsync()
     {
         var sql =
-            @"select a.id, title, description, price, is_new, is_active, is_sold, is_tradable, a.created_date,
+            @"select a.id, title, description,a.is_active price, is_new, is_sold, is_tradable, a.created_date,
                 a.category_id, c.id, c.name,
                 a.status_id, s.id ,s.name,
-                a.user_id, u.id ,u.name,u.email
+                a.user_id, u.id ,u.first_name,u.email
                 from adverts a
                 inner join categories c on a.category_id = c.id
                 inner join statuses s on a.status_id = s.id
@@ -79,10 +80,10 @@ public class AdvertRepository : IAdvertRepository
     public async Task<IList<AdvertGetPopulatedDto>> GetAllByCategoryPopulatedAsync(int categoryId)
     {
         var sql =
-            $@"select a.id, title, description, price, is_new, is_active, is_sold, is_tradable, a.created_date,
+            $@"select a.id, title, description,a.is_active price, is_new, is_sold, is_tradable, a.created_date,
                 a.category_id, c.id, c.name,
                 a.status_id, s.id ,s.name,
-                a.user_id, u.id ,u.name,u.email
+                a.user_id, u.id ,u.first_name,u.email
                 from adverts a
                 inner join categories c on a.category_id = c.id
                 inner join statuses s on a.status_id = s.id
