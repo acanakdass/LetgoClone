@@ -35,6 +35,9 @@ public class DIModule:ICoreModule
         serviceCollection.AddScoped<IUserRepository, UserRepository>();
         serviceCollection.AddScoped<IUserService, UserManager>();
         
+        serviceCollection.AddScoped<IOperationClaimService, OperationClaimManager>();
+        serviceCollection.AddScoped<IOperationClaimRepository, OperationClaimRepository>();
+        
         serviceCollection.AddScoped<IAuthService, AuthManager>();
         
         serviceCollection.AddScoped<ITokenHelper, JwtHelper>();

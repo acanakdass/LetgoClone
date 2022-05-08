@@ -42,4 +42,11 @@ public class UserRepository : DapperEntityRepositoryBase<User>, IUserRepository
         var res = await _dbConnection.QueryAsync<User>(query);
         return res.FirstOrDefault();
     }
+
+    public async Task<int> AddRoleToUserAsync(int userId, int roleId)
+    {
+        var comand = $"INSERT INTO user_operation_claims(user_id,operation_claim_id) VALUES ({userId},{roleId})";
+        return await _dbConnection.ExecuteAsync(comand);
+        
+    }
 }

@@ -12,7 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddAutoMapper(typeof(AdvertMapper), typeof(CategoryMapper));
+
+builder.Services.AddAutoMapper(typeof(AdvertMapper), typeof(CategoryMapper),typeof(OperationClaimMapper));
 
 var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 builder.Services.AddAuthenticationJWT(tokenOptions);

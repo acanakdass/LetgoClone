@@ -1,6 +1,6 @@
 using AutoMapper;
-using Entity;
-using Entity.DTOs.Category;
+using Core.Entities.Concrete;
+using Entity.DTOs.OperationClaim;
 using Microsoft.AspNetCore.Mvc;
 using Service.Abstract;
 
@@ -8,21 +8,21 @@ namespace API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class CategoriesController : ControllerBase
+public class OperationClaimsController:ControllerBase
 {
-    private readonly ICategoryService _categoryService;
+    private readonly IOperationClaimService _service;
     private readonly IMapper _mapper;
 
-    public CategoriesController(ICategoryService categoryService, IMapper mapper)
+    public OperationClaimsController(IOperationClaimService service, IMapper mapper)
     {
-        _categoryService = categoryService;
+        _service = service;
         _mapper = mapper;
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var result = await _categoryService.GetAllAsync();
+        var result = await _service.GetAllAsync();
         if (result.Success)
         {
             return Ok(result);
@@ -31,10 +31,10 @@ public class CategoriesController : ControllerBase
     }
     
     [HttpPost]
-    public async Task<IActionResult> Add(CategoryAddDto categoryAddDto)
+    public async Task<IActionResult> Add(OperationClaimAddDto addDto)
     {
-        var category = _mapper.Map<Category>(categoryAddDto);
-        var result = await _categoryService.AddAsync(category);
+        var operationClaim = _mapper.Map<OperationClaim>(addDto);
+        var result = await _service.AddAsync(operationClaim);
         if (result.Success)
         {
             return Ok(result);
@@ -45,7 +45,7 @@ public class CategoriesController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var result = await _categoryService.DeleteAsync(id);
+        var result = await _service.DeleteAsync(id);
         if (result.Success)
         {
             return Ok(result);
@@ -54,9 +54,9 @@ public class CategoriesController : ControllerBase
     }
     
     [HttpPut]
-    public async Task<IActionResult> Update(Category category)
+    public async Task<IActionResult> Update(OperationClaim operationClaim)
     {
-        var result = await _categoryService.UpdateAsync(category);
+        var result = await _service.UpdateAsync(operationClaim);
         if (result.Success)
         {
             return Ok(result);
@@ -67,7 +67,7 @@ public class CategoriesController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
-        var result = await _categoryService.GetByIdAsync(id);
+        var result = await _service.GetByIdAsync(id);
         if (result.Success)
         {
             return Ok(result);

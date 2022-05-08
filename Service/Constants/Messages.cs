@@ -16,4 +16,6 @@ public static class Messages
     public static string UserAlreadyExists() => $"User already exists";
     public static string AccessTokenCreated() => $"Access Token Created";
     public static string LoginFailed() => $"Username or password is wrong";
+    public static string RoleAddedToUser() => $"Role added to user";
+    public static string ErrorRoleAddedToUser() => $"An error occured while adding role to user";
 }

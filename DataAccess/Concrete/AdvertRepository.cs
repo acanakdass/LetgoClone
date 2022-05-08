@@ -15,21 +15,7 @@ public class AdvertRepository :DapperEntityRepositoryBase<Advert>, IAdvertReposi
     {
         _dbConnection = dbConnection;
     }
-
-    public async Task<IList<Advert>> GetAllAsync()
-    {
-        var query = "SELECT * FROM adverts";
-        var adverts = await _dbConnection.QueryAsync<Advert>(query);
-        return adverts.ToList();
-    }
-
-    public async Task<Advert> GetByIdAsync(int id)
-    {
-        var query = $"SELECT * FROM adverts WHERE id={id}";
-        var result = await _dbConnection.QueryAsync<Advert>(query);
-        return result.FirstOrDefault();
-    }
-
+    
     public async Task<int> AddAsync(Advert entity)
     {
         var command =
@@ -46,11 +32,7 @@ public class AdvertRepository :DapperEntityRepositoryBase<Advert>, IAdvertReposi
     {
         throw new NotImplementedException();
     }
-
-    public Task<int> DeleteAsync(int id)
-    {
-        throw new NotImplementedException();
-    }
+    
 
     //*****************************************************\\
     public async Task<IList<AdvertGetPopulatedDto>> GetAllPopulatedAsync()

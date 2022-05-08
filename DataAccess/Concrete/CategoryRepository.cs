@@ -1,6 +1,5 @@
 using System.Data;
-using Core.Utilities.Results.Abstract;
-using Core.Utilities.Results.Concrete;
+
 using Dapper;
 using DataAccess.Abstract;
 using Entity;

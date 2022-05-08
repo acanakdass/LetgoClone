@@ -8,4 +8,5 @@ public interface IUserService:IService<User>
 {
     Task<IDataResult<List<OperationClaim>>> GetClaimsAsync(int userId);
     Task<IDataResult<User>> GetByMailAsync(string email);
+    Task<IDataResult<int>> AddRoleToUserAsync(int userId,int operationClaimId);
 }

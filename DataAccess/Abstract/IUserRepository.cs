@@ -7,4 +7,5 @@ public interface IUserRepository:IDapperEntityRepositoryBase<User>,IRepository<U
 {
     Task<List<OperationClaim>> GetClaimsAsync(int userId);
     Task<User> GetByMailAsync(string email);
+    Task<int> AddRoleToUserAsync(int userId,int roleId);
 }
