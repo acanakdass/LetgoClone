@@ -1,7 +1,9 @@
+using Core.Attributes;
 using Core.Entities.Abstract;
 
 namespace Entity;
 
+[TableName("photos")]
 public class Photo:IEntity
 {
     public int id { get; set; }

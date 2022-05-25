@@ -12,8 +12,6 @@ namespace Service.Concrete;
 public class CategoryManager : ICategoryService
 {
     private readonly ICategoryRepository _categoryRepository;
-
-    private readonly string tableName = "categories";
     public CategoryManager(ICategoryRepository categoryRepository)
     {
         _categoryRepository = categoryRepository;
@@ -21,13 +19,13 @@ public class CategoryManager : ICategoryService
 
     public async Task<IDataResult<IList<Category>>> GetAllAsync()
     {
-        var result = await _categoryRepository.GetAllAsync(tableName);
+        var result = await _categoryRepository.GetAllAsync();
         return new SuccessDataResult<IList<Category>>(result);
     }
 
     public async Task<IDataResult<Category>> GetByIdAsync(int id)
     {
-        var result = await _categoryRepository.GetByIdAsync(tableName, id);
+        var result = await _categoryRepository.GetByIdAsync(id);
         if (result == null)
             return new ErrorDataResult<Category>(null, "Category Not Found");
         return new SuccessDataResult<Category>(result, Messages.Listed("Category"));
@@ -53,7 +51,7 @@ public class CategoryManager : ICategoryService
 
     public async Task<IResult> DeleteAsync(int id)
     {
-        var result = await _categoryRepository.DeleteAsync(tableName,id);
+        var result = await _categoryRepository.DeleteAsync(id);
         if (result != 0)
         {
             return new SuccessResult(Messages.Deleted("Category"));

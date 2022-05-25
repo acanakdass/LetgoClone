@@ -1,11 +1,11 @@
 using Core.Attributes;
-using Core.Entities.Abstract;
 
 namespace Core.Entities.Concrete;
 
-[TableName("operation_claims")]
-public class OperationClaim:IEntity
+[TableName("cities")]
+public class City
 {
     public int id { get; set; }
     public string name { get; set; }
+    public int country_id  { get; set; }
 }

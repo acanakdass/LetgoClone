@@ -19,13 +19,13 @@ public class OperationClaimManager : IOperationClaimService
 
     public async Task<IDataResult<IList<OperationClaim>>> GetAllAsync()
     {
-        var result = await _repository.GetAllAsync(TableName);
+        var result = await _repository.GetAllAsync();
         return new SuccessDataResult<IList<OperationClaim>>(result, Messages.Listed("Operation claims"));
     }
 
     public async Task<IDataResult<OperationClaim>> GetByIdAsync(int id)
     {
-        var result = await _repository.GetByIdAsync(TableName, id);
+        var result = await _repository.GetByIdAsync(id);
         if (result != null)
             return new SuccessDataResult<OperationClaim>(result, Messages.Listed("Operation Claim"));
         return new ErrorDataResult<OperationClaim>(null, Messages.NotFound("Operation Claim"));
@@ -46,7 +46,7 @@ public class OperationClaimManager : IOperationClaimService
 
     public async Task<IResult> DeleteAsync(int id)
     {
-        var result = await _repository.DeleteAsync(TableName,id);
+        var result = await _repository.DeleteAsync(id);
         if (result > 0)
             return new SuccessResult(Messages.Deleted("Operation Claim"));
         return new ErrorResult(Messages.FailedDelete("Operation Claim"));

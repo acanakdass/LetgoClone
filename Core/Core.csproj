@@ -6,19 +6,19 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="Aspects"/>
+        <Folder Include="Aspects" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Autofac" Version="6.3.0"/>
-        <PackageReference Include="Autofac.Extras.DynamicProxy" Version="6.0.1"/>
-        <PackageReference Include="FluentValidation" Version="10.4.0"/>
-        <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.4"/>
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.4"/>
-        <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.17.0"/>
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.3"/>
-        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.17.0"/>
+        <PackageReference Include="Autofac" Version="6.3.0" />
+        <PackageReference Include="Autofac.Extras.DynamicProxy" Version="6.0.1" />
+        <PackageReference Include="FluentValidation" Version="10.4.0" />
+        <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.4" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.4" />
+        <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.17.0" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.3" />
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.17.0" />
     </ItemGroup>
 
     <ItemGroup>

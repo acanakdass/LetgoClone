@@ -23,13 +23,13 @@ public class UserManager : IUserService
 
     public async Task<IDataResult<IList<User>>> GetAllAsync()
     {
-        var res = await _repository.GetAllAsync(TableName);
+        var res = await _repository.GetAllAsync();
         return new SuccessDataResult<IList<User>>(res);
     }
 
     public async Task<IDataResult<User>> GetByIdAsync(int id)
     {
-        var user = await _repository.GetByIdAsync(TableName, id);
+        var user = await _repository.GetByIdAsync(id);
         if (user != null)
         {
             return new SuccessDataResult<User>(user, Messages.Listed("User"));
@@ -53,7 +53,7 @@ public class UserManager : IUserService
 
     public async Task<IResult> DeleteAsync(int id)
     {
-        var res = await _repository.DeleteAsync(TableName, id);
+        var res = await _repository.DeleteAsync(id);
         if (res == 1)
             return new SuccessResult(Messages.Deleted("User"));
         return new ErrorResult(Messages.FailedDelete("User"));
@@ -85,7 +85,7 @@ public class UserManager : IUserService
 
     private IResult CheckIfUserExists(int userId)
     {
-        var user = _repository.GetByIdAsync(TableName, userId).Result;
+        var user = _repository.GetByIdAsync(userId).Result;
         if (user != null)
             return new SuccessResult();
         return new ErrorResult(Messages.NotFound("User"));

@@ -1,7 +1,9 @@
+using Core.Attributes;
 using Core.Entities.Abstract;
 
 namespace Entity;
 
+[TableName("adverts")]
 public class Advert:IEntity
 {
     public int id { get; set; }
@@ -19,3 +21,4 @@ public class Advert:IEntity
     public DateTime created_date { get; set; }
     public DateTime updated_date { get; set; }
 }
+
