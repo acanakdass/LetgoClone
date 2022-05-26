@@ -30,7 +30,7 @@ public class AdvertsController : ControllerBase
         return BadRequest(result);
     }
 
-    [SecuredAction("admin")]
+    [SecuredAction("standard_user")]
     [HttpGet("GetAllPopulated")]
     public async Task<IActionResult> GetAllPopulated()
     {
@@ -50,10 +50,13 @@ public class AdvertsController : ControllerBase
         return BadRequest(result);
     }
     
+    [SecuredAction("standard_user")]
     [HttpPost]
     public async Task<IActionResult> Add(AdvertAddDto advertAddDto)
     {
         var advert = _mapper.Map<Advert>(advertAddDto);
+        var userId = 
+        advert.user_id = Int32.Parse(HttpContext.User.Claims.First().Value);
         var result = await _service.AddAsync(advert);
         if (result.Success)
             return Ok(result);

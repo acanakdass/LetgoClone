@@ -6,7 +6,6 @@ public class AdvertAddDto:IDto
 {
     public string title { get; set; }
     public string description { get; set; }
-    public int user_id { get; set; }
     public decimal price { get; set; }
     public int status_id { get; set; }
     public bool is_new { get; set; }

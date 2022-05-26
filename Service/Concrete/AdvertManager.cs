@@ -4,8 +4,10 @@ using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using Entity;
 using Entity.DTOs.Advert;
+using Microsoft.AspNetCore.Http;
 using Service.Aspects.Security;
 using Service.Constants;
+using IResult = Core.Utilities.Results.Abstract.IResult;
 
 namespace Service.Concrete;
 

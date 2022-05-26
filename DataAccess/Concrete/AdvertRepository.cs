@@ -1,5 +1,6 @@
 using System.Data;
 using Core.Entities.Concrete;
+using Core.Entities.DTOs;
 using Dapper;
 using DataAccess.Abstract;
 using Entity;
@@ -41,14 +42,14 @@ public class AdvertRepository :DapperEntityRepositoryBase<Advert>, IAdvertReposi
             @"select a.id, title, description,a.is_active price, is_new, is_sold, is_tradable, a.created_date,
                 a.category_id, c.id, c.name,
                 a.status_id, s.id ,s.name,
-                a.user_id, u.id ,u.first_name,u.email
+                a.user_id, u.id ,u.first_name,u.last_name,u.email
                 from adverts a
                 inner join categories c on a.category_id = c.id
                 inner join statuses s on a.status_id = s.id
                 inner join users u on a.user_id = u.id";
 
         var adverts =
-            await _dbConnection.QueryAsync<AdvertGetPopulatedDto, Category, Status, User, AdvertGetPopulatedDto>(
+            await _dbConnection.QueryAsync<AdvertGetPopulatedDto, Category, Status, UserGetDto, AdvertGetPopulatedDto>(
                 sql, (advert, category, status, user) =>
                 {
                     advert.Category = category;
@@ -73,7 +74,7 @@ public class AdvertRepository :DapperEntityRepositoryBase<Advert>, IAdvertReposi
                 WHERE category_id={categoryId}";
 
         var adverts =
-            await _dbConnection.QueryAsync<AdvertGetPopulatedDto, Category, Status, User, AdvertGetPopulatedDto>(
+            await _dbConnection.QueryAsync<AdvertGetPopulatedDto, Category, Status, UserGetDto, AdvertGetPopulatedDto>(
                 sql, (advert, category, status, user) =>
                 {
                     advert.Category = category;

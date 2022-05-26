@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 
-namespace Core.Middlewares;
+namespace Core.Extensions;
 
 public static class AddJwtSecurityAuthentication
 {
