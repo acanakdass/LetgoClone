@@ -6,7 +6,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="Aspects" />
         <Folder Include="CrossCuttingConcerns\Exceptions" />
     </ItemGroup>
 

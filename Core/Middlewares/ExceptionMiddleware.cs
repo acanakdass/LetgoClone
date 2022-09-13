@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Text.Json;
+using Core.CrossCuttingConcerns.Exceptions;
+using ValidationProblemDetails = Core.CrossCuttingConcerns.Exceptions.ValidationProblemDetails;
 
-namespace Core.CrossCuttingConcerns.Exceptions;
+namespace Core.Middlewares;
 
 public class ExceptionMiddleware
 {
@@ -68,7 +70,7 @@ public class ExceptionMiddleware
     private Task CreateValidationException(HttpContext context, Exception exception)
     {
         context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.BadRequest);
-        object errors = ((ValidationException)exception).Errors;
+        var errors = ((ValidationException)exception).Errors;
 
         return context.Response.WriteAsync(new ValidationProblemDetails
         {
