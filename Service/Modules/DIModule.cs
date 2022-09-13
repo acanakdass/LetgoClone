@@ -1,13 +1,17 @@
 using System.Data;
+using System.Reflection;
 using Core.Utilities.Ioc;
 using Core.Utilities.Security.JWT;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
+using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Npgsql;
 using Service.Abstract;
+using Service.BusinessRules;
 using Service.Concrete;
+
 
 namespace Service.Modules;
 
@@ -22,7 +26,6 @@ public class DIModule:ICoreModule
     
     public void Load(IServiceCollection serviceCollection)
     {
-        
         serviceCollection.AddScoped<IDbConnection>(sp
             => new NpgsqlConnection(_configuration.GetConnectionString("PostgreSql")));
         
@@ -41,5 +44,14 @@ public class DIModule:ICoreModule
         serviceCollection.AddScoped<IAuthService, AuthManager>();
         
         serviceCollection.AddScoped<ITokenHelper, JwtHelper>();
+        
+        //Business Rules
+        serviceCollection.AddScoped<UserBusinessRules>();
+        serviceCollection.AddScoped<OperationClaimBusinessRules>();
+        serviceCollection.AddScoped<CategoryBusinessRules>();
+        serviceCollection.AddScoped<AdvertBusinessRules>();
+        
+        // serviceCollection.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
     }
 }

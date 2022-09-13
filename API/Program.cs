@@ -1,3 +1,4 @@
+using Core.CrossCuttingConcerns.Exceptions;
 using Core.Extensions;
 using Core.Middlewares;
 using Core.Utilities.Ioc;
@@ -31,9 +32,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.ConfigureCustomExceptionMiddleware();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-app.UseGlobalExceptionMiddleware();
+
+// app.UseGlobalExceptionMiddleware();
 app.Run();

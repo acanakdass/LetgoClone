@@ -6,6 +6,7 @@ using Entity;
 using Entity.DTOs.Advert;
 using Microsoft.AspNetCore.Http;
 using Service.Aspects.Security;
+using Service.BusinessRules;
 using Service.Constants;
 using IResult = Core.Utilities.Results.Abstract.IResult;
 
@@ -15,11 +16,12 @@ public class AdvertManager : IAdvertService
 {
     private readonly IAdvertRepository _repository;
     private readonly ICategoryService _categoryService;
-
-    public AdvertManager(IAdvertRepository repository, ICategoryService categoryService)
+    private readonly AdvertBusinessRules _advertBusinessRules;
+    public AdvertManager(IAdvertRepository repository, ICategoryService categoryService, AdvertBusinessRules advertBusinessRules)
     {
         _repository = repository;
         _categoryService = categoryService;
+        _advertBusinessRules = advertBusinessRules;
     }
 
     public async Task<IDataResult<IList<Advert>>> GetAllAsync()
@@ -45,14 +47,21 @@ public class AdvertManager : IAdvertService
         return new ErrorDataResult<int>(0, "Error while adding advert");
     }
 
-    public Task<IResult> UpdateAsync(Advert entity)
+    public async Task<IResult> UpdateAsync(Advert entity)
     {
+        await _advertBusinessRules.AssureThatEntityExistsById(entity.id);
         throw new NotImplementedException();
     }
 
-    public Task<IResult> DeleteAsync(int id)
+    public async Task<IResult> DeleteAsync(int id)
     {
-        throw new NotImplementedException();
+        //business rules
+        await _advertBusinessRules.AssureThatEntityExistsById(id);
+        
+        var res = await _repository.DeleteAsync(id);
+        if (res > 0)
+            return new SuccessResult(Messages.Deleted("Advert"));
+        return new ErrorResult(Messages.FailedDelete("Advert"));
     }
 
     public async Task<IDataResult<IList<AdvertGetPopulatedDto>>> GetAllPopulatedAsync()

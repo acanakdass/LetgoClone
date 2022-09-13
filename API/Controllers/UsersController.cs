@@ -15,7 +15,7 @@ public class UsersController:ControllerBase
     {
         _service = service;
     }
-    [SecuredAction("admin")]
+    // [SecuredAction("admin")]
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -35,13 +35,24 @@ public class UsersController:ControllerBase
         return BadRequest(result);
     }
     
-    [SecuredAction("admin")]
+    // [SecuredAction("admin")]
     [HttpPost("AddRoleToUser")]
     public async Task<IActionResult> AddRoleToUser(AddRoleToUserDto dto)
     {
         var result = await _service.AddRoleToUserAsync(dto.UserId, dto.OperationClaimId);
         if (result.Success)
             return Ok(result);
+        return BadRequest(result);
+    }
+    
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var result = await _service.DeleteAsync(id);
+        if (result.Success)
+        {
+            return Ok(result);
+        }
         return BadRequest(result);
     }
 }

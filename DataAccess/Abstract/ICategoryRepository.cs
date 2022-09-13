@@ -4,6 +4,8 @@ using Entity;
 
 namespace DataAccess.Abstract;
 
-public interface ICategoryRepository:IDapperEntityRepositoryBase<Category>,IRepository<Category>
+public interface ICategoryRepository:IRepository<Category>,IDapperEntityRepositoryBase<Category>
 {
+    Task<Category> GetByNameAsync(string name);
+
 }

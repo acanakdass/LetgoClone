@@ -5,6 +5,7 @@ using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using Entity;
+using Service.BusinessRules;
 using Service.Constants;
 
 namespace Service.Concrete;
@@ -12,9 +13,11 @@ namespace Service.Concrete;
 public class CategoryManager : ICategoryService
 {
     private readonly ICategoryRepository _categoryRepository;
-    public CategoryManager(ICategoryRepository categoryRepository)
+    private readonly CategoryBusinessRules _categoryBusinessRules;
+    public CategoryManager(ICategoryRepository categoryRepository, CategoryBusinessRules categoryBusinessRules)
     {
         _categoryRepository = categoryRepository;
+        _categoryBusinessRules = categoryBusinessRules;
     }
 
     public async Task<IDataResult<IList<Category>>> GetAllAsync()
@@ -33,6 +36,8 @@ public class CategoryManager : ICategoryService
 
     public async Task<IDataResult<int>> AddAsync(Category entity)
     {
+        await _categoryBusinessRules.AssureThatCategoryWithNameNotExists(entity.name);
+
         var result = await _categoryRepository.AddAsync(entity);
         if (result >= 1)
             return new SuccessDataResult<int>(result, Messages.Added("Category"));
@@ -51,6 +56,7 @@ public class CategoryManager : ICategoryService
 
     public async Task<IResult> DeleteAsync(int id)
     {
+        await _categoryBusinessRules.AssureThatEntityExistsById(id);
         var result = await _categoryRepository.DeleteAsync(id);
         if (result != 0)
         {

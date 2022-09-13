@@ -1,4 +1,5 @@
 using System.Net;
+using Core.CrossCuttingConcerns.Exceptions;
 using Core.Extensions;
 using Core.Utilities.Ioc;
 using Core.Utilities.Results.Concrete;
@@ -30,6 +31,8 @@ public class SecuredAction : ActionFilterAttribute
                 return;
             }
         }
+
+        throw new AuthorizationException(Messages.AuthorizationFailed());
         context.Result = new ObjectResult(new ErrorResult(Messages.AuthorizationFailed())) {StatusCode = 401};
     }
 }

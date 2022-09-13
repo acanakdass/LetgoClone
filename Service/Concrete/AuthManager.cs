@@ -6,6 +6,7 @@ using Core.Utilities.Results.Concrete;
 using Core.Utilities.Security.Hashing;
 using Core.Utilities.Security.JWT;
 using Service.Abstract;
+using Service.BusinessRules;
 using Service.Constants;
 
 namespace Service.Concrete;
@@ -14,21 +15,20 @@ public class AuthManager:IAuthService
 {
     private IUserService _userService;
     private ITokenHelper _tokenHelper;
+    private readonly UserBusinessRules _userBusinessRules;
 
-    public AuthManager(IUserService userService, ITokenHelper tokenHelper)
+    public AuthManager(IUserService userService, ITokenHelper tokenHelper, UserBusinessRules userBusinessRules)
     {
         _userService = userService;
         _tokenHelper = tokenHelper;
+        _userBusinessRules = userBusinessRules;
     }
 
     public async Task<IDataResult<User>> Register(UserRegisterDto userRegisterDto)
     {
+        await _userBusinessRules.CheckIfUserWithEmailAlreadyExists(userRegisterDto.Email);
+        
         string passwordHash, passwordSalt;
-        var businessResult = BusinessRules.Run(await IsUserExist(userRegisterDto.Email));
-        if (businessResult!=null)
-        { 
-            return new ErrorDataResult<User>(businessResult.Message);
-        }
         HashingHelper.CreatePasswordHash(userRegisterDto.Password, out passwordHash, out passwordSalt);
         var user = new User
         {
@@ -45,12 +45,8 @@ public class AuthManager:IAuthService
 
     public async Task<IDataResult<User>> Login(UserLoginDto userLoginDto)
     {
+        await _userBusinessRules.AssureThatUserExistsByEmail(userLoginDto.Email);
         var userToCheck = await _userService.GetByMailAsync(userLoginDto.Email);
-        if (!userToCheck.Success)
-        {
-            return new ErrorDataResult<User>(Messages.NotFound("User"));
-        }
-
         if (!HashingHelper.VerifyPasswordHash(userLoginDto.Password, userToCheck.Data.password_hash,userToCheck.Data.password_salt))
         {
             return new ErrorDataResult<User>(Messages.LoginFailed());

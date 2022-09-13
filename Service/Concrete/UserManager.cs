@@ -5,6 +5,7 @@ using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using Microsoft.AspNetCore.Server.IIS.Core;
 using Service.Abstract;
+using Service.BusinessRules;
 using Service.Constants;
 
 namespace Service.Concrete;
@@ -14,11 +15,16 @@ public class UserManager : IUserService
     private readonly IUserRepository _repository;
     private readonly IOperationClaimService _operationClaimService;
     private const string TableName = "users";
+    private readonly UserBusinessRules _userBusinessRules;
+    private readonly OperationClaimBusinessRules _operationClaimBusinessRules;
+    
 
-    public UserManager(IUserRepository repository, IOperationClaimService operationClaimService)
+    public UserManager(IUserRepository repository, IOperationClaimService operationClaimService, UserBusinessRules userBusinessRules, OperationClaimBusinessRules operationClaimBusinessRules)
     {
         _repository = repository;
         _operationClaimService = operationClaimService;
+        _userBusinessRules = userBusinessRules;
+        _operationClaimBusinessRules = operationClaimBusinessRules;
     }
 
     public async Task<IDataResult<IList<User>>> GetAllAsync()
@@ -31,10 +37,7 @@ public class UserManager : IUserService
     {
         var user = await _repository.GetByIdAsync(id);
         if (user != null)
-        {
             return new SuccessDataResult<User>(user, Messages.Listed("User"));
-        }
-
         return new ErrorDataResult<User>(null, Messages.NotFound("User"));
     }
 
@@ -53,6 +56,9 @@ public class UserManager : IUserService
 
     public async Task<IResult> DeleteAsync(int id)
     {
+        //business rules
+        await _userBusinessRules.AssureThatEntityExistsById(id);
+        
         var res = await _repository.DeleteAsync(id);
         if (res == 1)
             return new SuccessResult(Messages.Deleted("User"));
@@ -73,29 +79,13 @@ public class UserManager : IUserService
 
     public async Task<IDataResult<int>> AddRoleToUserAsync(int userId, int operationClaimId)
     {
-        IResult businessRulesResult =
-            BusinessRules.Run(CheckIfUserExists(userId), CheckIfOperationClaimExists(operationClaimId));
-        if (businessRulesResult != null)
-            return new ErrorDataResult<int>(0, businessRulesResult.Message);
+        //business rules
+        await _operationClaimBusinessRules.AssureThatOperationClaimExistsById(operationClaimId);
+        await _userBusinessRules.AssureThatEntityExistsById(userId);
+        
         var result = await _repository.AddRoleToUserAsync(userId, operationClaimId);
         if (result > 0)
             return new SuccessDataResult<int>(result, Messages.RoleAddedToUser());
         return new ErrorDataResult<int>(0, Messages.ErrorRoleAddedToUser());
-    }
-
-    private IResult CheckIfUserExists(int userId)
-    {
-        var user = _repository.GetByIdAsync(userId).Result;
-        if (user != null)
-            return new SuccessResult();
-        return new ErrorResult(Messages.NotFound("User"));
-    }
-
-    private IResult CheckIfOperationClaimExists(int operationClaimId)
-    {
-        var claim = _operationClaimService.GetByIdAsync(operationClaimId).Result;
-        if (claim.Success)
-            return new SuccessResult();
-        return new ErrorResult(Messages.NotFound("Operation Claim"));
     }
 }
